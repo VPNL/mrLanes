@@ -1,6 +1,6 @@
 
 % This code was run to produce all subplots in Fig 1 and save them as .tif
-% Fig 1a and c are schemiatcs created in powerpoint, this code poduced Fig
+% Fig 1a and c are schematics created in powerpoint, this code poduced Fig
 % 1B. It reads in ROI files created in Vistasoft and plots them on the
 % surface of a representative subject.
 
