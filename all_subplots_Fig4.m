@@ -1,9 +1,10 @@
 
-% This code was run to produce all subplots in Fig 4 and save them as .tif
+% This code was run to produce subplots in Fig 4 and save them as .tif files
 
 clear all
 close all
 
+% path; absolute path is machine specific.
 ExpDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','data_mrAuto');
 CodeDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','code','mrLanesFigureCode');
 
@@ -14,6 +15,7 @@ cd(outFolder)
 mkdir('data')
 OutDir=fullfile(CodeDir,outFolder);
 
+% sessions
 sessid={'01_sc_dti_080917' '02_at_dti_080517' '03_as_dti_083016'...
     '04_kg_dti_101014' '05_mg_dti_071217' '06_jg_dti_083016'...
     '07_bj_dti_081117' '08_sg_dti_081417' '10_em_dti_080817'...
@@ -26,11 +28,13 @@ qmrSessid={'01_sc_qMRI_080917' '02_at_qMRI_080517' '03_as_qMRI_083016'...
     '12_rc_qMRI_080717' '13_cb_qMRI_081317' '16_kw_qMRI_082117'...
     '17_ad_qMRI_081817' '18_nc_qMRI_090817'}
 
+% anatomy file name in each directory
 t1name=['t1.nii.gz'];
 
 for tract=1:2
     
-% This produces Fig 4a,d by plotting pairwise tract color-coded depending on the network they belong to  
+% This produces Fig 4a,d by plotting tracts connecting pairs of ROIs.
+%Treacks are color-coded depending on the network they belong to; Reading: green; Math: blue  
    s=6
     if tract ==1
     pairwiseTracts={'lh_ISMG_morphing_reading_vs_all_lh_IFG_union_morphing_reading_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap_unique.mat'...
@@ -60,8 +64,7 @@ num=19;
             ROIfg=['lh_STS_ITG_IPCS_IFG_AF_overlap.mat'];
              end
 
-fatRenderFibersForPublication(ExpDir, sessid{s}, '96dir_run1', ROIfg,[1:2],t1name,'lh',...
-[0 0.8 0; 0 0 0.8],600)
+fatRenderFibersForPublication(ExpDir, sessid{s}, '96dir_run1', ROIfg,[1:2],t1name,'lh',[0 0.8 0; 0 0 0.8],600)
 cd(OutDir);
 print(gcf, '-dtiff', outname,'-r600')
 close all;
