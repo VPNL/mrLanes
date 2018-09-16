@@ -43,7 +43,7 @@ num=15;
     
     end
 
- % generate Fig 5c,f by calculating t1 across the lengths of the fascicles and plotting the resutlant values
+ % generate Fig 5c,f by calculating t1 across the lengths of the fascicles and plotting the resultant values
 [Superfiber, fgResampled, TractProfile, t1, tv ,edgesT1, histoT1, edgesTv, histoTv]=fatTractQmr(ExpDir,sessid,qmrSessid,pairwiseTracts,num) 
 
 t1new=t1(:,:,:)
@@ -51,9 +51,12 @@ t1means=squeeze(nanmean(t1new,1));
 t1std=squeeze(nanstd(t1new,1));
 t1ste=t1std/(sqrt(size(t1new,1)));
 
-p1=shadedErrorBar([],t1means(:,1),t1ste(:,1),[0 0.5 0],0.5)
+color=[0 0.5 0];
+visibility=0.5;
+p1=shadedErrorBar([],t1means(:,1),t1ste(:,1),color,visibility)
 hold on
-p1=shadedErrorBar([],t1means(:,2),t1ste(:,2),[0 0 0.5],0.5)
+color=[0 0 0.5];
+p1=shadedErrorBar([],t1means(:,2),t1ste(:,2),color,visibility)
 hold on
 
 set(gca,'XTick',[0:5:30])
@@ -84,7 +87,8 @@ t1NodeSte=t1NodeStd/(sqrt(size(t1NodesAveraged,1)));
 % generate bar graph
 caption_x=[];
 caption_y='betas';
-fig=mybar(mean(t1NodesAveraged),t1NodeSte,caption_x,[],[0 0.5 0; 0 0 0.5],2,0.65);
+colors=[0 0.5 0; 0 0 0.5];
+fig=mybar(mean(t1NodesAveraged),t1NodeSte,caption_x,[],colors,2,0.65);
 set(gca,'YTick',[0.85:0.05:1])
 ylim([0.86 0.98]);
 set(gca,'XTickLabel',{'';''});
