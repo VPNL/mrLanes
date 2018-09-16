@@ -57,9 +57,10 @@ pairwiseFibers={'lh_ITG_morphing_adding_lh_pIPS_morphing_adding_vs_all_r7.00_run
     
 %load all pairwise fibers    
 roifg=plotFibersDC(pairwiseFibers,ROIfgname,1); 
-
-fatRenderFibersForPublication(ExpDir, sessid{s}, '96dir_run1', ROIfgname,[1:36],t1name,'lh',...
-    [0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05],600)
+fibersToPlot=[1:36];
+colors=[0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05]
+imageSize=600;
+fatRenderFibersForPublication(ExpDir, sessid{s}, '96dir_run1', ROIfgname,fibersToPlot,t1name,'lh',colors,imageSize)
 cd(OutDir);
 print(gcf, '-dtiff', outname,'-r600')
 end
@@ -75,6 +76,7 @@ for network=1:2
     end
     
     for l=1:length(input_ROIs)
+    %evaluates the functional white matter tracts of a single ROI
         [percentage]=fiberCountFibersInRoiClassified(sessid, ExpDir, input_ROIs{l}, fullfile(OutDir,'data'));
     end
     
@@ -103,7 +105,9 @@ for network=1:2
         end
         
         if l<4
+        %evaluates the pairwise functional white matter tracts 
             [percentage] = fiberCountFibersInRoiClassifiedPairwise(ExpDir, sessid, input_ROIs{l}, ROIs, fullfile(OutDir,'data'));
+        %calculates the DC by determining the ratio of functional white matter tracts of individual rois and shared functional white matter tracts
             calculateDCClassified(input_ROIs{l}, ROIs, fullfile(OutDir,'data'));
         end
     end
