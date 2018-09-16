@@ -4,6 +4,7 @@
 clear all
 close all
 
+% path is machine specific
 ExpDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','data_mrAuto');
 CodeDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','code','mrLanesFigureCode');
 
@@ -25,24 +26,24 @@ qmrSessid={'01_sc_qMRI_080917' '02_at_qMRI_080517' '03_as_qMRI_083016'...
     '12_rc_qMRI_080717' '13_cb_qMRI_081317' '16_kw_qMRI_082117'...
     '17_ad_qMRI_081817' '18_nc_qMRI_090817'}
 
+% brain anatomy file name in each directory
 t1name=['t1.nii.gz'];
 
 for tract=1:2
  
-    if tract ==1
+    if tract ==1 % reading
     pairwiseTracts={'lh_ISMG_morphing_reading_vs_all_lh_IFG_union_morphing_reading_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap_unique.mat'...
         'lh_ISMG_morphing_adding_vs_all_lh_IPCS_morphing_adding_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap_unique.mat'};
 num=15;
 
-    elseif tract ==2
+    elseif tract ==2 % math
     pairwiseTracts={'lh_pSTS_MTG_union_morphing_reading_vs_all_lh_IFG_union_morphing_reading_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap_unique.mat'...
         'lh_ITG_morphing_adding_lh_IPCS_morphing_adding_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap_unique.mat'};
     num=19;
     
     end
 
- % this procudes plot 5c,f by calculating t1 across the lengths of the fascicles and plotting
- % it
+ % generate Fig 5c,f by calculating t1 across the lengths of the fascicles and plotting the resutlant values
 [Superfiber, fgResampled, TractProfile, t1, tv ,edgesT1, histoT1, edgesTv, histoTv]=fatTractQmr(ExpDir,sessid,qmrSessid,pairwiseTracts,num) 
 
 t1new=t1(:,:,:)
@@ -66,8 +67,8 @@ pbaspect([2 1 1])
 set(gca,'FontSize',22,'FontWeight','bold'); box off; set(gca,'Linewidth',2); 
 hold off
 
- % this procudes plot 5a,d by averaging t1 across the lengths of the fascicles and plotting
- % it
+ % Generate Figure 5a,d by averaging t1 across the lengths of the fascicles and plotting
+ % the results
 if tract==1
     outname=strcat('Fig5_tract_SLF.tif');
 elseif tract==2
@@ -80,6 +81,7 @@ t1NodesAveraged=squeeze(nanmean(t1new,2));
 t1NodeStd=squeeze(nanstd(t1NodesAveraged));
 t1NodeSte=t1NodeStd/(sqrt(size(t1NodesAveraged,1)));
 
+% generate bar graph
 caption_x=[];
 caption_y='betas';
 fig=mybar(mean(t1NodesAveraged),t1NodeSte,caption_x,[],[0 0.5 0; 0 0 0.5],2,0.65);
@@ -98,15 +100,15 @@ print(gcf, '-dtiff', outname,'-r600')
 close all;
 
 
- % this procudes plot 5b,e by calculating a histogram of the distribution
- % of t1 across the tract and plotting it
+ % Generate Figure 5b,e by calculating a histogram of the distribution
+ % of t1 across the tract and plotting results
  
 histonew=(histoT1(:,:,:))*100
 histmean=squeeze(nanmean(histonew));
 histstd=squeeze(nanstd(histonew));
 histse=histstd/(sqrt(size(histonew,1)));
 
-
+% generated error bar as a shaded region around the mean
 p1=shadedErrorBar([],histmean(:,1),histse(:,1),[0 0.5 0],0.5)
 hold on
 p2=shadedErrorBar([],histmean(:,2),histse(:,2),[0 0 0.5],0.5)
