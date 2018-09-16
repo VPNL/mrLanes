@@ -18,6 +18,6 @@ Vistasoft: https://github.com/vistalab/vistasoft
 
 mrQ: https://github.com/mezera/mrQ
 
-To install these packages, follow the individual intallation instruction. A few hours may be required to install all software.
+To install these packages, follow each package's intallation instruction. A few hours may be required to install all software.
 
-For each figure in the manuscript, the script called all_subplots_fig* reads in the data and then does all the require analyses and plotting.
+For each figure in the manuscript, the script called all_subplots_fig* reads in the data and then performs all the required analyses and plotting for Figure *.
