@@ -20,8 +20,10 @@ ROIs={'lh_OTS_union_morphing_reading_vs_all' 'lh_IFG_union_morphing_reading_vs_a
     'lh_ITG_morphing_adding' 'lh_IPCS_morphing_adding_vs_all' 'lh_ISMG_morphing_adding_vs_all' 'lh_pIPS_morphing_adding_vs_all'}';
 
 % plot ROIs on a representative mesh
-
-call_meshImages(ROIs,1,[0 0.5 0; 0 0.5 0; 0 0.5 0; 0 0.5 0; 0 0 0.5; 0 0 0.5; 0 0 0.5; 0 0 0.5],1);
+colors=[0 0.5 0; 0 0.5 0; 0 0.5 0; 0 0.5 0; 0 0 0.5; 0 0 0.5; 0 0 0.5; 0 0 0.5];
+hem=1; %1 for left 2 for right
+N=1 %number of subjects to plot
+call_meshImages(ROIs,hem,colors,N);
 cd(fullfile(CodeDir,outFolder));
 outname='Fig1_mesh.tif';
 print(gcf, '-dtiff', outname,'-r600')
