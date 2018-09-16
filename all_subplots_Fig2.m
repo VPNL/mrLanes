@@ -35,7 +35,10 @@ ROIfgname=strcat(ROIs{r}, '_r7.00_run1_lmax8_curvatures_concatenated_optimize_it
 
 % Generate plots in the left column of Fig 2; plot the functional white matter tracts of each ROI 
 % in a representative subject; here it is: '13_cb_dti_081317'
-fatRenderFibersForPublication(ExpDir, '13_cb_dti_081317', '96dir_run1', ROIfgname,[11 13 15 19 27 21],t1name,'lh',[0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05],600)
+fibersToPlot=[11 13 15 19 27 21];
+colors=[0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05];
+imageSize=600;
+fatRenderFibersForPublication(ExpDir, '13_cb_dti_081317', '96dir_run1', ROIfgname,fibersToPlot,t1name,'lh',colors,imageSize)
 cd(OutDir);
 outname=strcat('Fig2_fibers_',ROIs{r},'.tif');
 print(gcf, '-dtiff', outname,'-r600') 
@@ -44,7 +47,8 @@ print(gcf, '-dtiff', outname,'-r600')
 % proportion of functional white matter tracts included in each fascicle
 % saves them and plots them as bar graphs
 [percentage]=fiberCountFibersInRoiClassified(sessid, ExpDir, ROIs{r}, fullfile(OutDir,'data'));
-[fig] = plotFiberCountPercentClassified(percentage,1);
+hem=1; %1 for lh, 2 for rh
+[fig] = plotFiberCountPercentClassified(percentage,hem);
 cd(OutDir);
 outname=strcat('Fig2_bar_graph_',ROIs{r},'.tif');
 print(gcf, '-dtiff', outname,'-r600')
