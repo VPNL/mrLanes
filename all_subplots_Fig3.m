@@ -129,13 +129,13 @@ for network=1:2
         outname2=strcat('Fig3_percentage_math.tif');
     end
     
-    % plot results and generate panels
+    % plot results and generate panels b,f
     [fig,values]=plotDCClassified(pairwiseROIs, network, fullfile(OutDir,'data'),1,tresh)
     cd(OutDir);
     print(gcf, '-dtiff', outname1,'-r600')
     close all
     
-    % plot results and generate panels 
+    % plot results and generate panels c,g
     [fig,values]=plotFiberCountPercentPairwise(pairwiseROIs, network, fullfile(OutDir,'data'),1)
     cd(OutDir);
     print(gcf, '-dtiff', outname2,'-r600')
