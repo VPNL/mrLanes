@@ -40,12 +40,12 @@ for tract=1:2
     pairwiseTracts={'lh_ISMG_morphing_reading_vs_all_lh_IFG_union_morphing_reading_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap_unique.mat'...
         'lh_ISMG_morphing_adding_vs_all_lh_IPCS_morphing_adding_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap_unique.mat'};
 outname=strcat('Fig4_fibers_SLF.tif');
-num=15;
+num=15; %refers to the numerical code used in AFQ to label differenct fascicles, 15=left SLF
     elseif tract ==2
     pairwiseTracts={'lh_pSTS_MTG_union_morphing_reading_vs_all_lh_IFG_union_morphing_reading_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap_unique.mat'...
         'lh_ITG_morphing_adding_lh_IPCS_morphing_adding_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap_unique.mat'};
 outname=strcat('Fig4_fibers_AF.tif');
-num=19;
+num=19;  %refers to the numerical code used in AFQ to label differenct fascicles, 19=left arcuate
 
     end
     
@@ -64,7 +64,10 @@ num=19;
             ROIfg=['lh_STS_ITG_IPCS_IFG_AF_overlap.mat'];
              end
 
-fatRenderFibersForPublication(ExpDir, sessid{s}, '96dir_run1', ROIfg,[1:2],t1name,'lh',[0 0.8 0; 0 0 0.8],600)
+fibersToPlot=[1:2];
+color=[0 0.8 0; 0 0 0.8];
+imageSize=600;
+fatRenderFibersForPublication(ExpDir, sessid{s}, '96dir_run1', ROIfg,fibersToPlot,t1name,'lh',color,imageSize)
 cd(OutDir);
 print(gcf, '-dtiff', outname,'-r600')
 close all;
