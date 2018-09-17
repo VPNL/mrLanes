@@ -1,5 +1,5 @@
 
-%  This code produces subplots in Fig 3 and save them as .tif files
+%  This code was run in Matlab R2012b to produce subplots in Fig 3 and save them as .tif files
 %  The schematics in Fig3d,h were created in PowerPoint and are not included here.
 
 clear all
@@ -7,7 +7,7 @@ close all
 
 % set paths (machine specific)
 ExpDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','data_mrAuto');
-CodeDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','code','mrLanesFigureCode');
+CodeDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','code','mrLanes');
 
 outFolder='Output_Fig3';
 cd(CodeDir)
@@ -17,7 +17,6 @@ mkdir('data')
 OutDir=fullfile(CodeDir,outFolder);
 
 %sessions
-
 sessid={'01_sc_dti_080917' '02_at_dti_080517' '03_as_dti_083016'...
     '04_kg_dti_101014' '05_mg_dti_071217' '06_jg_dti_083016'...
     '07_bj_dti_081117' '08_sg_dti_081417' '10_em_dti_080817'...
@@ -33,7 +32,7 @@ for networks=1:2
     cd(fullfile(ExpDir,sessid{s},'/96dir_run1/dti96trilin/fibers/afq'))
     
     if networks==1
-    % general list of fibers for reading network
+    % general list of pairwise fibers for reading network
 pairwiseFibers={'lh_pSTS_MTG_union_morphing_reading_vs_all_lh_IFG_union_morphing_reading_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap.mat'...
     'lh_pSTS_MTG_union_morphing_reading_vs_all_lh_ISMG_morphing_reading_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap.mat'...
     'lh_ISMG_morphing_reading_vs_all_lh_IFG_union_morphing_reading_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap.mat'...
@@ -44,7 +43,7 @@ pairwiseFibers={'lh_pSTS_MTG_union_morphing_reading_vs_all_lh_IFG_union_morphing
   ROIfgname=['roifg_reading_for_plot.mat'];
   
     elseif networks==2
-     % general list of fibers for math network
+     % general list of pairwise fibers for math network
 pairwiseFibers={'lh_ITG_morphing_adding_lh_pIPS_morphing_adding_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap.mat'...
     'lh_ITG_morphing_adding_lh_ISMG_morphing_adding_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap.mat'...
     'lh_ITG_morphing_adding_lh_IPCS_morphing_adding_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap.mat'...
@@ -55,12 +54,11 @@ pairwiseFibers={'lh_ITG_morphing_adding_lh_pIPS_morphing_adding_vs_all_r7.00_run
       ROIfgname=['roifg_math_for_plot.mat'];
     end
     
-%load all pairwise fibers    
+%plot all pairwise fibers    
 roifg=plotFibersDC(pairwiseFibers,ROIfgname,1); 
 fibersToPlot=[1:36];
-colors=[0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05]
-imageSize=600;
-fatRenderFibersForPublication(ExpDir, sessid{s}, '96dir_run1', ROIfgname,fibersToPlot,t1name,'lh',colors,imageSize)
+colors=[0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05; 0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05];
+fatRenderFibersForPublication(ExpDir, sessid{s}, '96dir_run1', ROIfgname,fibersToPlot,t1name,'lh',colors)
 cd(OutDir);
 print(gcf, '-dtiff', outname,'-r600')
 end

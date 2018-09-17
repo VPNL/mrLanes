@@ -7,7 +7,7 @@ close all
 
 % data and code path; this is machine specific.
 ExpDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','data_mrAuto');
-CodeDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','code','mrLanesFigureCode');
+CodeDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','code','mrLanes');
 
 outFolder='Output_Fig2';
 cd(CodeDir)
@@ -37,8 +37,7 @@ ROIfgname=strcat(ROIs{r}, '_r7.00_run1_lmax8_curvatures_concatenated_optimize_it
 % in a representative subject; here it is: '13_cb_dti_081317'
 fibersToPlot=[11 13 15 19 27 21];
 colors=[0 0.8 0.8; 1 0.5 1; 0.45 0 0.45; 1 0 0; 1 0.6 0; 0.6 1 0.05];
-imageSize=600;
-fatRenderFibersForPublication(ExpDir, '13_cb_dti_081317', '96dir_run1', ROIfgname,fibersToPlot,t1name,'lh',colors,imageSize)
+fatRenderFibersForPublication(ExpDir, '13_cb_dti_081317', '96dir_run1', ROIfgname,fibersToPlot,t1name,'lh',colors)
 cd(OutDir);
 outname=strcat('Fig2_fibers_',ROIs{r},'.tif');
 print(gcf, '-dtiff', outname,'-r600') 
