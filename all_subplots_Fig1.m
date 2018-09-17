@@ -9,7 +9,7 @@ close all
 
 % Experiment and code directories (path is machine specific)
 ExpDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','data_mrAuto');
-CodeDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','code','mrLanesFigureCode');
+CodeDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','code','mrLanes');
 
 outFolder='Output_Fig1';
 cd(CodeDir)
@@ -22,7 +22,7 @@ ROIs={'lh_OTS_union_morphing_reading_vs_all' 'lh_IFG_union_morphing_reading_vs_a
 % plot ROIs on a representative mesh
 colors=[0 0.5 0; 0 0.5 0; 0 0.5 0; 0 0.5 0; 0 0 0.5; 0 0 0.5; 0 0 0.5; 0 0 0.5];
 hem=1; %1 for left 2 for right
-N=1 %number of subjects to plot
+N=1; %number of subjects to plot
 call_meshImages(ROIs,hem,colors,N);
 cd(fullfile(CodeDir,outFolder));
 outname='Fig1_mesh.tif';
