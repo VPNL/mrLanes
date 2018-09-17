@@ -1,5 +1,5 @@
 
-% This code was run in MATLAB to produce subplots in Fig 1 and save them as .tif files
+% This code was run in MATLAB R2012b to produce subplots in Fig 1 and save them as .tif files
 % The present code produces Fig 1B. It reads in ROI files created in Vistasoft and plots them on the cortical
 % surface of a representative participant.
 % Fig 1a and c are schematics created in powerpoint, 
