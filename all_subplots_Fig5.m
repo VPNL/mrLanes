@@ -1,12 +1,12 @@
 
-% This code was run to produce all subplots in Fig S7 and save them as .tif
+% This code was run in Matlab2015a to produce all subplots in Fig S7 and save them as .tif
 
 clear all
 close all
 
 % path is machine specific
 ExpDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','data_mrAuto');
-CodeDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','code','mrLanesFigureCode');
+CodeDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','code','mrLanes');
 
 outFolder='Output_Fig5';
 cd(CodeDir)
@@ -44,7 +44,7 @@ num=15;
     end
 
  % generate Fig 5c,f by calculating t1 across the lengths of the fascicles and plotting the resultant values
-[Superfiber, fgResampled, TractProfile, t1, tv ,edgesT1, histoT1, edgesTv, histoTv]=fatTractQmr(ExpDir,sessid,qmrSessid,pairwiseTracts,num) 
+[Superfiber, fgResampled, TractProfile, t1, tv ,edgesT1, histoT1, edgesTv, histoTv]=fatTractQmrWrapper(ExpDir,sessid,qmrSessid,pairwiseTracts,num) 
 
 t1new=t1(:,:,:)
 t1means=squeeze(nanmean(t1new,1));

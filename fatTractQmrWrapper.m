@@ -6,7 +6,7 @@ for s=1:length(dtiSessid)
     if (exist(fullfile(fatDir,dtiSessid{s},'96dir_run1/dti96trilin/fibers/afq',fgName{1})) && exist(fullfile(fatDir,dtiSessid{s},'96dir_run1/dti96trilin/fibers/afq',fgName{2})))>0
         
         for i=1:length(fgName)
-            [Superfiber, fgResampled, TractProfile, T1, TV]=fatTractQmrMg(fatDir, dtiSessid{s}, '96dir_run1', fgName{i}, fatDir, qmrSessid{s},num)
+            [Superfiber, fgResampled, TractProfile, T1, TV]=fatTractQmr(fatDir, dtiSessid{s}, '96dir_run1', fgName{i}, fatDir, qmrSessid{s},num)
             
 %             indices = find(abs(T1)>1.05); %in case you want to treshold the data
 %             T1(indices) = NaN;
