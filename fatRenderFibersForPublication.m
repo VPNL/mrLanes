@@ -1,4 +1,4 @@
-function  fatRenderFibersForPublication(fatDir, sessid, runName, fgName,foi,t1name,hemi,colorMap,resolution)
+function  fatRenderFibersForPublication(fatDir, sessid, runName, fgName,foi,t1name,hemi,colorMap)
 %  fatRenderFibers(fatDir, sessid, runName, fgName, hemi)
 % fgName: full name of fg including path and postfix
 % foi, a vector to indicate fiber of interest

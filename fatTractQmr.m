@@ -1,35 +1,41 @@
+function  [SuperFiber, fgResampled, TractProfile,  T1, TV]=fatTractQmr(dwiDir, sessid, runName, fgName, qmrDir, qmrSessid,num)
+% dwiTractQmri(dwiDir, sessid, runName, fgName)
+% fgName: Name of fg file
 
-function [Superfiber, fgResampled, TractProfile, t1,tv,edgesT1,histoT1, edgesTv, histoTv]=fatTractQmr(fatDir,dtiSessid,qmrSessid,fgName,num)
+fprintf('Compute tract Qmr for (%s,%s,%s)\n',sessid,runName,fgName);
+runDir = fullfile(dwiDir,sessid,runName,'dti96trilin');
+afqDir = fullfile(runDir, 'fibers','afq');
+numNodes = 30; clip2rois = 1;
+% Load fg array
+fgFile = fullfile(afqDir, fgName);
+if exist(fgFile,'file')
+    load(fgFile,'roifg');
 
-counter=1;
-for s=1:length(dtiSessid)
-    if (exist(fullfile(fatDir,dtiSessid{s},'96dir_run1/dti96trilin/fibers/afq',fgName{1})) && exist(fullfile(fatDir,dtiSessid{s},'96dir_run1/dti96trilin/fibers/afq',fgName{2})))>0
-        
-        for i=1:length(fgName)
-            [Superfiber, fgResampled, TractProfile, T1, TV]=fatTractQmrMg(fatDir, dtiSessid{s}, '96dir_run1', fgName{i}, fatDir, qmrSessid{s},num)
-            
-%             indices = find(abs(T1)>1.05); %in case you want to treshold the data
-%             T1(indices) = NaN;
-%             
-            t1(counter,:,i)=T1(1:30,1);
-            tv(counter,:,i)=TV(1:30,1);
-            
-            edgesT1=[0.75:0.01:1.05]
-            histoT1(counter,:,i) = histcounts(T1(:,1), edgesT1, 'Normalization', 'probability');
-            
-            edgesTv=[0.24:0.01:0.33]
-            histoTv(counter,:,i) = histcounts(TV(:,1), edgesTv, 'Normalization', 'probability');
-            
-            
-        end
-        counter=counter+1;
-        
-    else
+    % Read the t1 file
+    t1File = fullfile(qmrDir,qmrSessid,'mrQnew_processed/OutPutFiles_1/BrainMaps','T1_map_Wlin_rescliced.nii.gz');
+    t1 = niftiRead(t1File);
+    % Check t1 header
+    if ~all(t1.qto_xyz(:) == t1.sto_xyz(:))
+        t1 = niftiCheckQto(t1);
     end
+    % Compute a Tract t1
+    [SuperFiber, fgResampled, TractProfile,  T1]  = AFQ_ComputeTractPropertiesMg(roifg,t1, numNodes, clip2rois, runDir,'mean',[],num);
+   
+    %AFQ_ComputeTractProperties(fg_classified,dt,[numberOfNodes=30],[clip2rois=1],[subDir], [weighting = 1], afq)
+    % Compute diffusion properties along the trajectory of the fiber groups.
+    % Read the tv file
+    tvFile = fullfile(qmrDir,qmrSessid,'mrQnew_processed/OutPutFiles_1/BrainMaps','TV_map_rescliced.nii.gz');
+    tv = niftiRead(tvFile);
+    % Check tv header
+    if ~all(tv.qto_xyz(:) == tv.sto_xyz(:))
+        tv = niftiCheckQto(tv);
+    end
+    % Compute a Tract tv
+    [SuperFiber, fgResampled, TractProfile,  TV] = AFQ_ComputeTractPropertiesMg(roifg, tv, numNodes, clip2rois, runDir,'mean',[],num);
     
+    % save tract Qmr
+    tractFile = fullfile(afqDir, ['TractQmr','_', fgName]);
+    save(tractFile,'T1','TV');
 end
 
-
-
-
-
+            

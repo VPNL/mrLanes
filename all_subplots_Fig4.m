@@ -1,18 +1,17 @@
 
-% This code was run to produce subplots in Fig 4 and save them as .tif files
+% This code was run in Mastlab R2015a to produce subplots in Fig 4 and save them as .tif files
 
 clear all
 close all
 
 % path; absolute path is machine specific.
 ExpDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','data_mrAuto');
-CodeDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','code','mrLanesFigureCode');
+CodeDir=fullfile('/sni-storage/kalanit/biac2/kgs/projects','NFA_tasks','code','mrLanes');
 
 outFolder='Output_Fig4';
 cd(CodeDir)
 mkdir(outFolder)
 cd(outFolder)
-mkdir('data')
 OutDir=fullfile(CodeDir,outFolder);
 
 % sessions
@@ -34,8 +33,8 @@ t1name=['t1.nii.gz'];
 for tract=1:2
     
 % This produces Fig 4a,d by plotting tracts connecting pairs of ROIs.
-%Treacks are color-coded depending on the network they belong to; Reading: green; Math: blue  
-   s=6
+% Treacks are color-coded depending on the network they belong to; Reading: green; Math: blue  
+   s=6 %the representative subject presented in manuscript
     if tract ==1
     pairwiseTracts={'lh_ISMG_morphing_reading_vs_all_lh_IFG_union_morphing_reading_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap_unique.mat'...
         'lh_ISMG_morphing_adding_vs_all_lh_IPCS_morphing_adding_vs_all_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap_unique.mat'};
@@ -65,15 +64,14 @@ num=19;  %refers to the numerical code used in AFQ to label differenct fascicles
              end
 
 fibersToPlot=[1:2];
-color=[0 0.8 0; 0 0 0.8];
-imageSize=600;
-fatRenderFibersForPublication(ExpDir, sessid{s}, '96dir_run1', ROIfg,fibersToPlot,t1name,'lh',color,imageSize)
+colors=[0 0.8 0; 0 0 0.8];
+fatRenderFibersForPublication(ExpDir, sessid{s}, '96dir_run1', ROIfg,fibersToPlot,t1name,'lh',colors)
 cd(OutDir);
 print(gcf, '-dtiff', outname,'-r600')
 close all;
 
 % This produces Fig 4b,e by calculating euclidean distance within and between networks and plotting it  
-[fig2,histmeanWithin,histmeanAcross,EuclDistanceWithin,EuclDistanceAcross]=fatTractEuclDistance(ExpDir,sessid,qmrSessid,pairwiseTracts, num) 
+[fig2,histmeanWithin,histmeanAcross,EuclDistanceWithin,EuclDistanceAcross]=fatTractEuclDistance(ExpDir,sessid,qmrSessid,pairwiseTracts,num) 
 
 if tract==1
     outname=strcat('Fig4_distance_SLF.tif');

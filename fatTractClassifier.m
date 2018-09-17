@@ -8,7 +8,7 @@ for s=1:length(sessid)
     if (exist(fullfile(ExpDir,sessid{s},'96dir_run1/dti96trilin/fibers/afq',fgName{1})) && exist(fullfile(ExpDir,sessid{s},'96dir_run1/dti96trilin/fibers/afq',fgName{2})))>0
         
         for i=1:length(fgName)
-           [Superfiber, fgResampled, TractProfile, T1, TV]=fatTractQmrMg(ExpDir, sessid{s}, '96dir_run1', fgName{i}, ExpDir, qmrSessid{s},num)
+           [Superfiber, fgResampled, TractProfile, T1, TV]=fatTractQmr(ExpDir, sessid{s}, '96dir_run1', fgName{i}, ExpDir, qmrSessid{s},num)
             if i==1
                 fgResampledReading{counter,1}=fgResampled.fibers
             elseif i==2
