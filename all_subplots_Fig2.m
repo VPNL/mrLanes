@@ -1,5 +1,5 @@
 
-% This code was run to produce subplots in Fig 2 and save them as .tif files
+% This code was run in Matlab R2012b to produce subplots in Fig 2 and save them as .tif files
 % The schematics in the right column in Fig 2 were created in PowerPoint and are not included here.
 
 clear all

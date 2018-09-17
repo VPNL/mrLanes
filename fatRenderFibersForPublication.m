@@ -63,11 +63,7 @@ numfibers = 75;
             clear fg roifg
             
        %     print('-depsc',fullfile(imgDir,sprintf('%s.eps',fName)));
-       if resolution==300
-            print('-dtiff','-r300',fullfile(imgDir,sprintf('%s.tiff',fName)));
-       else 
            print('-dtiff','-r300',fullfile(imgDir,sprintf('%s.tiff',fName)));
-       end
             end
            % close all;
         end
