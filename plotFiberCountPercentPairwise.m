@@ -8,8 +8,8 @@ count=1;
     for n=1:length(pairwiseROIs)
         name_ending=['_DC']
         
-        ROIName=strsplit(pairwiseROIs{n},'.')
-        filename=strcat(ROIName{1}, name_ending,'.mat')
+        ROIName=pairwiseROIs{n}
+        filename=strcat(ROIName, name_ending,'.mat')
         
         load(filename)
         subjectnr=size(DC)-2
@@ -26,16 +26,32 @@ count=1;
     end
 
 if network==1
-    caption_x={'OTS/STS' 'OTS/SMG' 'OTS/IFG'...
-        'STS/SMG' 'STS/IFG'...
-        'SMG/IFG'};
+    caption_x={'OTS/STS ' 'OTS/SMGr' 'OTS/IFG '...
+        'STS/SMGr' 'STS/IFG '...
+        'SMGr/IFG'};
 
 elseif network ==2
-    caption_x={'ITG/IPS' 'ITG/SMG' 'ITG/PCS'...
-        'IPS/SMG' 'IPS/PCS'...
-        'SMG/PCS'};
-
+    caption_x={'ITG/IPS ' 'ITG/SMGm' 'ITG/PCS '...
+        'IPS/SMGm' 'IPS/PCS '...
+        'PCS/SMGm'};
+    
+    elseif network ==3
+    caption_x={'lOTC/SMGr' 'lOTC/IFG '...
+        '       ' 'lOTC/IPS ' 'lOTC/SMGm'...
+        'lOTC/PCS '};
+    
+   zerovalues=zeros(7,1)
+    values=[values(:,1:2) zerovalues values(:,3:5)];
+    error=[error(:,1:2) 0 error(:,3:5)];
+    
+elseif network ==4
+    caption_x={'OTS/IPS ' 'OTS/SMGm' 'OTS/PCS '...
+    'STS/IPS ' 'STS/SMGm ' 'STS/PCS '...
+    'ITG/SMGr' 'IPS/SMGr' 'PCS/SMGr'...
+    'IFG/ITG ' 'IFG/IPS ' 'IFG/SMGm'};
+    
 end
+
 
 caption_y='betas';
 fig=mybar(values(1,:),error, caption_x,[],[1 1 1],2,0.8);
@@ -45,6 +61,10 @@ if network ==1
 fig=bar(values(1,:),'FaceColor',[0 0 0]);
 elseif network ==2
 fig=bar(values(1,:),'FaceColor',[0 0 0]);
+elseif network ==3
+fig=bar(values(1,:),'FaceColor',[0 0 0]);
+elseif network ==4
+fig=bar(values(1,1:12),'FaceColor',[0 0 0]);  
 end
 hold on
 fig=bar(values(7,:),'FaceColor',[0.6 0.8 0.1]);
@@ -61,10 +81,15 @@ fig=bar(values(2,:),'FaceColor',[0 0.5 0.5]);
 
 
 
-xticklabel_rotate([],45,[],'Fontsize',24,'FontWeight','bold')
+xticklabel_rotate([],45,[],'Fontsize',20,'FontWeight','bold')
 set(gca,'FontSize',24,'FontWeight','bold'); box off; set(gca,'Linewidth',2);
-ylabel('% of pairwise tracts','FontSize',24,'FontName','Arial','FontWeight','bold');
+%ylabel('% of pairwise tracts','FontSize',24,'FontName','Arial','FontWeight','bold');
+
+if network<4
 pbaspect([1 1 1])
+else
+pbaspect([2 1 1])
+end
 ylim([0 100]);
 
 end

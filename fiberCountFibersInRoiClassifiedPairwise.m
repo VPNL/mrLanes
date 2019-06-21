@@ -2,27 +2,29 @@
 % calculates the relative proportion of functional white matter tracts that
 % belong to each fascicle identified in AFQ
 
-function [percentage ] = fiberCountFibersInRoiClassifiedPairwise(fatDir, sessid, input_ROI, ROIs, outDir)
+function [percentage ] = fiberCountFibersInRoiClassifiedPairwise(fatDir, sessid, ROIfgname, input_ROI, ROI, outDir)
 
-for n=1:length(ROIs)
     fibercount=[];
-            allcount=[];
-            percentage=[];
-            percentage_all=[];
-            subjcnt=1;
+    allcount=[];
+    percentage=[];
+    percentage_all=[];
+    subjcnt=1;
     subjcnt=1;
     for s=1:length(sessid)  % Ok, here we go
-        inputROIName=strsplit(input_ROI,'.')
-        ROIName=strsplit(ROIs{n},'.')
-        ROIfgname=[inputROIName{1} '_' ROIName{1} '_r7.00_run1_lmax8_curvatures_concatenated_optimize_it500_new_classified_overlap.mat'];
-        roifgFile = fullfile(fatDir,sessid{s},'96dir_run1','dti96trilin','fibers','afq',ROIfgname);
+        
+        roifgFile = fullfile(fatDir,sessid{s},'96dir_run1','fw_afq_ET_ACT_LiFE_3.0.2_lmax8','dti96trilin','fibers','afq',ROIfgname);
         
         
         if exist(roifgFile,'file')>0
             roifg_classified=load(roifgFile);
             
             for f=1:28
+                if ~isempty(roifg_classified.roifg(1,f).fibers);
                 roicnt=size(roifg_classified.roifg(1,f).fibers);
+                else
+                    roicnt=0;
+                end
+                
                 fibercount(subjcnt,1)=s;
                 fibercount(subjcnt,f+1)=roicnt(1,1);
             end
@@ -49,9 +51,7 @@ for n=1:length(ROIs)
         percentage_of_interest(2,:)=percentage(1,[11 12 13 14 15 16 19 20 21 22 23 24]);
         
         cd(fullfile(outDir))
-        outname=[inputROIName{1} '_' ROIName{1} '_pairwise_classified']
+        outname=[input_ROI '_' ROI '_pairwise_classified']
         save(outname,'fibercount','fibercount_all','percentage', 'percentage_of_interest')
     end
-end
-
 

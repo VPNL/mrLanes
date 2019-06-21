@@ -3,7 +3,6 @@ function  fatRenderFibersForPublication(fatDir, sessid, runName, fgName,foi,t1na
 % fgName: full name of fg including path and postfix
 % foi, a vector to indicate fiber of interest
 % hemi, 'rh' or 'lh'
-if nargin < 7, hemi = 'lh'; end
 
 [~,fName] = fileparts(fgName);
 
@@ -17,8 +16,8 @@ end
 zplane = [0, 0, -10];
 
 % set criteria
-maxDist = 2.5;maxLen = 2;numNodes = 30;M = 'mean';maxIter = 1;count = false;
-numfibers = 75;
+maxDist = 5;maxLen = 5;numNodes = 100;M = 'mean';maxIter = 1;count = false;
+numfibers = 50;
         fprintf('Plot fiber %s-%s:%s\n',sessid,runName,fgName);
         runDir = fullfile(fatDir,sessid,runName,'dti96trilin');
         afqDir = fullfile(runDir, 'fibers','afq');
@@ -31,8 +30,10 @@ numfibers = 75;
         fgFile = fullfile(afqDir,fgName);
         if exist(fgFile,'file')
             load(fgFile);
-            if exist('roifg')
+            if exist('roifg') 
             fg = roifg(foi);
+            elseif exist('fg') 
+              fg = fg(foi);  
             else
             fg = bothfg(foi);  
             end
