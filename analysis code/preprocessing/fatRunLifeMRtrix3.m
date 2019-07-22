@@ -1,4 +1,4 @@
-function fatRunLifeMRtrix3(fatDir, sessid, runName, fgName, t1_name, Niter, L, force)
+function fg_out=fatRunLifeMRtrix3(fatDir, sessid, runName, fgName, t1_name, Niter, L, force)
 % fe = fatRunLife(fatDir, sessid, runName, fgName, Niter, L, force)
 % This function run LIFE on the candidate ensemble connectome produced
 % from fatRunET.
@@ -45,10 +45,11 @@ fprintf('number of non-0 weight tracks	: %d (%f)\n', out.stats.non0_tracks, out.
 fg_LiFE = out.life.fg;
 % And I think I would need to write and substitute the non cleaned ET tractogram tck with the new one...
 % Write the tck and mat files
-tck_file_life = fullfile(fiberDir,'WholeBrainFGAtlas_LiFE.tck');
+tck_file_life = fullfile(fiberDir,'WholeBrainFG_LiFE.tck');
 fgWrite(fg_LiFE, tck_file_life, 'tck');
 % fg = fgRead(tck_file_life);
 
-dtiWriteFiberGroup(fg_LiFE, fullfile(fiberDir, 'WholeBrainFGAtlas_LiFE.mat'));
+fg_out=fullfile(fiberDir, 'WholeBrain_LiFE.mat');
+dtiWriteFiberGroup(fg_LiFE, fg_out);
 end
 

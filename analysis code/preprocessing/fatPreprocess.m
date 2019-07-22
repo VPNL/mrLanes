@@ -5,8 +5,8 @@ function fatPreprocess(dwiDir,sessid,runName,t1_name,force)
 if nargin < 5, force = false; end
 
 % Init the params through vistasoft
-dwParams = dtiInitParams('clobber',1);
-dwParams.eddyCorrect = true;
+dwParams = dtiInitParams('clobber',0);
+dwParams.eddyCorrect = false;
 for s = 1:length(sessid)
     for r = 1:length(runName)
     fprintf('Run preprocess for (%s,%s)\n',sessid{s},runName{r});
@@ -18,8 +18,7 @@ for s = 1:length(sessid)
         if ~exist(dtFile,'file') || force
             
             k = strfind(runName{r},'_')+1;
-            dtiNiftiPath = fullfile(runDir, 'raw',...
-                sprintf('%s.nii.gz',runName{r}(k:end)));
+            dtiNiftiPath = fullfile(runDir, 'mrtix3preproc','dwi.nii.gz');
             t1NiftiPath  = fullfile(runDir,'t1',t1_name);
             dwParams.dt6BaseName = fullfile(runDir,'dti96trilin');
             

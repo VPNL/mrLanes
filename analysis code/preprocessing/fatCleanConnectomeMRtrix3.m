@@ -1,4 +1,4 @@
-function fatCleanConnectomeMRtrix3(fatDir, anatDir, anatid, sessid, runName, fgName, rmOutlier)
+function fgFile = fatCleanConnectomeMRtrix3(fatDir, anatDir, anatid, sessid, runName, fgName, rmOutlier)
 % fatSegmentConnectome(fatDir, sessid, runName, fgName)
 % fgName: full name of fg including path and postfix
 % foi, a vector to indicate fiber of interest

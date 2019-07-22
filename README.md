@@ -1,6 +1,6 @@
 # mrLanes
 
-This code was used to analyse data and produce all figures in a manuscript currently under review. The data was processed using other openly available toolboxes, specifically :https://github.com/scitran-apps/mrtrix3preproc and https://github.com/scitran-apps/afq-pipeline. The current code does analyses specfic to the manuscript, produces figures and the repository includes source data and the respective output for each figure.
+This code was used to analyse data and produce all figures in a manuscript accepted at Nature Communication. The data was processed using other openly available toolboxes, specifically: https://github.com/scitran-apps/mrtrix3preproc and https://github.com/scitran-apps/afq-pipeline. The current code does analyses specfic to the manuscript, produces figures and the repository includes source data and the respective output for each figure.
 
 The code is dependent on the following software packages:
 
